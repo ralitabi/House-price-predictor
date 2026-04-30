@@ -1,15 +1,18 @@
 <div align="center">
 
-# 🏡 UK House Price Predictor
+# UK House Price Predictor
 
-**Machine-learning powered property valuation with live market data**
+Machine learning–powered property valuation tool with live UK market data.
 
-[![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)](https://python.org)
-[![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=flat-square&logo=flask&logoColor=white)](https://flask.palletsprojects.com)
-[![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)](https://react.dev)
-[![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)](https://vitejs.dev)
-[![Tailwind CSS](https://img.shields.io/badge/Tailwind-3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)](LICENSE)
+<br/>
+
+![Python](https://img.shields.io/badge/Python-3.9%2B-3776AB?style=flat-square&logo=python&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-3.x-000000?style=flat-square&logo=flask&logoColor=white)
+![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react&logoColor=black)
+![Vite](https://img.shields.io/badge/Vite-5-646CFF?style=flat-square&logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-06B6D4?style=flat-square&logo=tailwindcss&logoColor=white)
+![scikit-learn](https://img.shields.io/badge/scikit--learn-1.4%2B-F7931E?style=flat-square&logo=scikit-learn&logoColor=white)
+![License: MIT](https://img.shields.io/badge/License-MIT-yellow?style=flat-square)
 
 </div>
 
@@ -17,30 +20,54 @@
 
 ## Overview
 
-A full-stack property valuation tool that combines a **Random Forest ML model** with **live HM Land Registry data** to estimate UK house prices with confidence intervals. Input your property details and get an instant estimate alongside 24-month regional market trends.
+UK House Price Predictor is a full-stack application that estimates residential property values using a Random Forest machine learning model combined with live market data from the HM Land Registry.
+
+Users can input property details to receive:
+
+- An instant price estimate
+- A 95% confidence interval
+- Regional comparisons
+- 24-month market trend insights
+
+The system is designed to demonstrate practical applications of machine learning in real-world property valuation.
 
 ---
 
-## Features
+## Key Features
 
-- **Random Forest model** — 200 estimators trained on 10,000 synthetic UK property samples
-- **95% confidence intervals** — derived from per-tree variance across the forest
-- **Live market data** — 24-month price trends pulled from the HM Land Registry UKHPI API
-- **Regional benchmarking** — compares your estimate against the regional average
-- **11 UK regions · 4 property types** — detached, semi-detached, terraced, flat
-- **Offline fallback** — gracefully serves estimated trend data if the API is unavailable
+**Machine Learning Model**
+- Random Forest model with 200 estimators
+- Trained on 10,000 synthetic UK property samples
+- Captures non-linear relationships in housing data
+
+**Price Estimation**
+- Instant predictions based on user input
+- 95% confidence intervals derived from tree variance
+- Price-per-square-foot calculation
+
+**Market Insights**
+- Live 24-month regional trends
+- Regional benchmarking against average prices
+- Support for 11 UK regions
+
+**Property Coverage**
+- Detached, semi-detached, terraced, flats
+
+**Reliability**
+- Offline fallback when external API is unavailable
+- Model caching for faster performance after first run
 
 ---
 
-## Tech Stack
+## Technology Stack
 
 | Layer | Technology |
 |---|---|
-| ML model | scikit-learn RandomForestRegressor |
-| Backend API | Python · Flask · joblib |
-| Data source | HM Land Registry UKHPI REST API |
-| Frontend | React 18 · Vite · Tailwind CSS |
-| Charts | Recharts |
+| Machine Learning | scikit-learn (RandomForestRegressor) |
+| Backend | Python, Flask, joblib |
+| Data Source | HM Land Registry UKHPI API |
+| Frontend | React, Vite, Tailwind CSS |
+| Visualisation | Recharts |
 
 ---
 
@@ -48,88 +75,92 @@ A full-stack property valuation tool that combines a **Random Forest ML model** 
 
 ```
 House Price Predictor/
+│
 ├── backend/
-│   ├── app.py                  # Flask REST API
+│   ├── app.py
 │   ├── requirements.txt
 │   ├── model/
-│   │   ├── trainer.py          # Data generation + model training
-│   │   └── predictor.py        # Inference + confidence intervals
+│   │   ├── trainer.py
+│   │   └── predictor.py
 │   └── data/
-│       └── fetcher.py          # Land Registry API + fallback
+│       └── fetcher.py
+│
 ├── frontend/
 │   ├── src/
 │   │   ├── App.jsx
 │   │   ├── components/
-│   │   │   ├── PredictionForm.jsx
-│   │   │   ├── ResultCard.jsx
-│   │   │   ├── MarketTrends.jsx
-│   │   │   └── RegionalAverages.jsx
-│   │   └── services/api.js
+│   │   └── services/
 │   └── package.json
-├── house_price_prediction.py   # Standalone script (no server needed)
-└── start.bat                   # One-click startup (Windows)
+│
+├── house_price_prediction.py
+└── start.bat
 ```
 
 ---
 
 ## Getting Started
 
-### Quick start (Windows)
+### Quick Start (Windows)
 
-Double-click **`start.bat`** — it installs all dependencies and opens both servers automatically.
+Run the following file to automatically install dependencies and start both servers:
+
+```
+start.bat
+```
 
 ---
 
-### Manual setup
+### Manual Setup
 
 **Backend**
 
 ```bash
 cd backend
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 python app.py
-# → http://localhost:5000
 ```
 
-**Frontend** *(separate terminal)*
+Backend runs at `http://localhost:5000`
+
+**Frontend**
 
 ```bash
 cd frontend
 npm install
 npm run dev
-# → http://localhost:5173
 ```
 
-Then open **http://localhost:5173** in your browser.
-
-> The model trains automatically on first run (~15 seconds) and is cached to disk for all subsequent starts.
+Frontend runs at `http://localhost:5173`
 
 ---
 
-### Standalone script
+### Standalone Mode
 
-No server required — runs entirely from the terminal:
+Run without a server:
 
 ```bash
-python -m pip install -r requirements.txt
+pip install -r requirements.txt
 python house_price_prediction.py
 ```
 
-Outputs test metrics, sample predictions, and saves `model_evaluation.png`.
+Outputs:
+- Model evaluation metrics
+- Sample predictions
+- Visual performance plots
 
 ---
 
-## API Reference
+## API Endpoints
 
 | Method | Endpoint | Description |
 |---|---|---|
-| `POST` | `/api/predict` | Predict price for a property |
-| `GET` | `/api/market-trends?region=London` | 24-month price trend for a region |
-| `GET` | `/api/regional-averages` | Average prices across all 11 regions |
-| `GET` | `/api/regions` | List of supported regions |
-| `GET` | `/api/health` | Server + model status |
+| `POST` | `/api/predict` | Predict property price |
+| `GET` | `/api/market-trends` | Get 24-month regional trends |
+| `GET` | `/api/regional-averages` | Compare regional averages |
+| `GET` | `/api/regions` | List supported regions |
+| `GET` | `/api/health` | Check system status |
 
-**Example request**
+**Example Request**
 
 ```bash
 curl -X POST http://localhost:5000/api/predict \
@@ -146,7 +177,7 @@ curl -X POST http://localhost:5000/api/predict \
   }'
 ```
 
-**Example response**
+**Example Response**
 
 ```json
 {
@@ -162,18 +193,37 @@ curl -X POST http://localhost:5000/api/predict \
 
 ---
 
-## Data & Model
+## Data and Model
 
-Property prices are modelled from real UK regional distributions (HM Land Registry 2024 Q4 averages) with realistic noise applied. The model accounts for:
+The model is trained on synthetic data derived from real UK regional price distributions (HM Land Registry 2024 data). It considers:
 
-- Square footage (non-linear size scaling)
-- Bedrooms & bathrooms
-- Property type premium/discount
-- Regional price baseline
-- Property age depreciation
-- Garden and parking bonuses
+- Property size (square footage)
+- Number of bedrooms and bathrooms
+- Property type
+- Regional pricing differences
+- Property age
+- Additional features such as garden and parking
 
-Live 24-month trend data is fetched from the **HM Land Registry UK House Price Index API** — no API key required.
+Live market trends are retrieved from the HM Land Registry UK House Price Index API. No API key is required.
+
+---
+
+## Design Considerations
+
+- Efficient model inference with cached training
+- Separation of backend and frontend components
+- API-driven architecture
+- Robust fallback mechanisms for data reliability
+
+---
+
+## Future Improvements
+
+- Integration with real transaction datasets
+- More advanced models (e.g. Gradient Boosting, XGBoost)
+- User authentication and saved predictions
+- Deployment to cloud platforms
+- Enhanced UI and analytics dashboard
 
 ---
 
