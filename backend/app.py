@@ -80,4 +80,4 @@ if __name__ == "__main__":
     logger.info("Loading model on startup...")
     get_predictor()
     logger.info("Starting server on http://localhost:5000")
-    app.run(debug=True, port=5000, host="0.0.0.0")
+    app.run(debug=False, port=5000, host="0.0.0.0")

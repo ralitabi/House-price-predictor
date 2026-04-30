@@ -34,10 +34,11 @@ class HousePricePredictor:
     def predict(self, data: dict) -> dict:
         X = self._prepare(data)
 
-        prediction = float(self._model.predict(X)[0])
+        X_np = X.values  # individual trees were fitted without feature names
+        prediction = float(self._model.predict(X_np)[0])
 
         # 95 % CI via per-tree variance
-        tree_preds = np.array([t.predict(X)[0] for t in self._model.estimators_])
+        tree_preds = np.array([t.predict(X_np)[0] for t in self._model.estimators_])
         std = float(np.std(tree_preds))
 
         from data.fetcher import REGIONAL_AVERAGES
