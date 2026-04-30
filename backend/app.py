@@ -76,17 +76,6 @@ def regional_averages():
         return jsonify({"error": str(e)}), 500
 
 
-@app.route("/api/regions", methods=["GET"])
-def get_regions():
-    return jsonify({
-        "regions": [
-            "London", "South East", "East of England", "South West",
-            "West Midlands", "East Midlands", "Yorkshire and The Humber",
-            "North West", "North East", "Wales", "Scotland",
-        ]
-    })
-
-
 if __name__ == "__main__":
     logger.info("Loading model on startup...")
     get_predictor()

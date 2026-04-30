@@ -10,18 +10,7 @@ import {
 } from "recharts";
 import { MapPin } from "lucide-react";
 import { fetchRegionalAverages } from "../services/api";
-
-function CustomTooltip({ active, payload, label }) {
-  if (!active || !payload?.length) return null;
-  return (
-    <div className="bg-slate-900 border border-slate-700 rounded-xl px-4 py-2.5 text-sm shadow-xl">
-      <p className="text-slate-400 mb-0.5">{label}</p>
-      <p className="font-semibold text-white">
-        £{Number(payload[0].value).toLocaleString("en-GB")}
-      </p>
-    </div>
-  );
-}
+import ChartTooltip from "./ChartTooltip";
 
 export default function RegionalAverages() {
   const [data, setData] = useState(null);
@@ -68,7 +57,7 @@ export default function RegionalAverages() {
               axisLine={false}
               tickLine={false}
             />
-            <Tooltip content={<CustomTooltip />} cursor={{ fill: "rgba(99,102,241,0.08)" }} />
+            <Tooltip content={<ChartTooltip />} cursor={{ fill: "rgba(99,102,241,0.08)" }} />
             <Bar dataKey="average_price" radius={[0, 6, 6, 0]}>
               {sorted.map((_, i) => (
                 <Cell key={i} fill={i === 0 ? "#6366f1" : "#1e293b"} />
